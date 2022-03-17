@@ -16,7 +16,7 @@ const blogsCreate = async function (req, res) {
         let isAuthorPresent = await authorModel.findById(authorId);
 
         if (!isAuthorPresent) {
-            res.send({ msg: "user Id is not present" })
+            res.send({ msg: "Author Id is not present" })
         }
 
         let createEntryInBlog = await blogsmodel.create(blogsData);
@@ -130,24 +130,18 @@ const deleteBlog = async function(req,res){
 }
 }   
 // <..........................................................Deleted Blogs......................................>
-const deleteBlogs = async function(req,res){
-   try{
-    let data = req.query;
-   const blog = await blogsmodel.findOne(data);
-   if(!blog){
-       res.status(400).send({err:"blog not found"})
-   }
-
-   if(blog.isDeleted==true){
-       res.status(400).send({status:false,msg:"This blog is deleted already"})
-   }
-
-   const deletedlBlog = await blogsModel.findOneAndUpdate(data,{isDeleted:true,deletedAt:moment().format()},{new:true})
-
-    res.send({msg:deletedlBlog})
-   }catch(err){
-       res.status(404).send({status:false,msg:err.message})
-   }
+const deleteBlogs = async function (req, res) {
+    try {
+        let data = req.query;
+        let filter = {
+            isPublished: false,
+            ...data
+        };
+        let findBlogs = await blogsmodel.findOneAndDelete(filter);
+        res.send({ msg: findBlogs })
+    } catch (err) {
+        res.status(404).send({ status: false, msg: "" })
+    }
 }
 
 module.exports.deleteBlogs = deleteBlogs;

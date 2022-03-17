@@ -15,7 +15,7 @@ const authentication = async function(req,res,next){
             res.send({status:false,msg:"Token is not present"})
         }
 
-        let decodedToken = jwt.verify(token,"Shubham-Auth");
+        let decodedToken = jwt.verify(token,"Ashis-Auth");
         // console.log(decodedToken);
         if(!decodedToken){
             res.send({status:false,msg:"Token is invalid"})
@@ -45,7 +45,7 @@ const authorization1 = async function(req,res,next){
 
         const blog = await blogsmodel.findById(data.blogId)
         // return res.send({data: blog.authorId})
-        const decodeedToken = jwt.verify(token, "Shubham-Auth")
+        const decodeedToken = jwt.verify(token, "Ashis-Auth")
         // console.log(decodeedToken.authorId + " " + blog.authorId);
 
         if(decodeedToken.authorId == blog.authorId){
@@ -71,7 +71,7 @@ const authorization2 = async function(req,res,next){
     try{
 
         const blog = await blogsmodel.findById(data);
-        const decodedToken = jwt.verify(token,"Shubham-Auth")
+        const decodedToken = jwt.verify(token,"Ashis-Auth")
 
         if(decodedToken.authorId==blog.authorId){
             next();
