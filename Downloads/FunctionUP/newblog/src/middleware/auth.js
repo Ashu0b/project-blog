@@ -5,10 +5,10 @@ const authorModel = require('../model/authorModel');
 const authentication = async function(req,res,next){
 
     try{
-        let token = req.header["X-Auth-Token"];
+        let token = req.header["x-api-key"];
         
         if(!token){
-            token = req.headers["x-auth-token"]
+            token = req.headers["x-api-key"]
           }
     
         if(!token){
@@ -33,7 +33,7 @@ const authentication = async function(req,res,next){
 }
 
 const authorization1 = async function(req,res,next){
-    const token = req.headers["x-auth-token"]
+    const token = req.headers["x-api-key"]
 
     if (!token){
         return res.status(404).send({status: false, msg: "important header is missing"})
@@ -62,7 +62,7 @@ const authorization1 = async function(req,res,next){
 }
 
 const authorization2 = async function(req,res,next){
-    const token = req.headers["x-auth-token"]
+    const token = req.headers["x-api-key"]
     if(!token){
         res.status(404).send({status:false,msg:"important header is missing"})
     }

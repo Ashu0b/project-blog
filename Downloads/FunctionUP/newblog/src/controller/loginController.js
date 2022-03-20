@@ -17,8 +17,8 @@ const loginAuthor = async function(req,res){
         fullName:`${isAuthorPresent.fName} ${isAuthorPresent.lName}`
     },"Ashis-Auth");
 
-    res.setHeader("x-auth-token",token)
-    res.send({"x-auth-token":token});
+    res.setHeader("x-api-key",token)
+    res.send({"x-api-key":token});
     
 
 
